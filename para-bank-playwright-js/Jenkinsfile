@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'NodeJS_20+' // Make sure this matches the name in Global Tool Config
+    }
+
+    environment {
+        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0' // Let Playwright download needed browsers
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/chanosky/para-bank-playwright-full-js.git', branch: 'master'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'cd para-bank-playwright-js && npm ci'
+                bat 'cd para-bank-playwright-js && npx playwright install'
+            }
+        }
+
+        stage('Run Playwright Tests') {
+            steps {
+                bat 'cd para-bank-playwright-js && npx playwright test --reporter=html'
+            }
+        }
+
+        stage('Publish Playwright HTML Report') {
+            steps {
+                publishHTML(target: [
+                    reportName : 'Playwright Test Report',
+                    reportDir  : 'playwright-report',
+                    reportFiles: 'index.html',
+                    keepAll    : true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: false
+                ])
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            deleteDir()
+        }
+        success {
+            echo 'Tests ran successfully!'
+        }
+        failure {
+            echo 'Test run failed. Check the report for more info.'
+        }
+    }
+}

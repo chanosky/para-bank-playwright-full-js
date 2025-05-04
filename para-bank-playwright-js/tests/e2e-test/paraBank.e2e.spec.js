@@ -8,7 +8,7 @@ import { TransferPage } from '../../pages/TransferPage.js';
 import { BillPayPage } from '../../pages/BillPayPage.js';
 
 test('End-to-End Para Bank UI Test', async ({ page, context }) => {
-  const user = generateUser(); // Make sure this comes before any usage
+  const user = generateUser();
   
   console.log('====================== 🧪 Generated Test Data ======================');
   console.log(`👤 Name       : ${user.firstName} ${user.lastName}`);
@@ -51,13 +51,13 @@ test('End-to-End Para Bank UI Test', async ({ page, context }) => {
   await accountPage.validateOverview(accountNumber);
 
   const cashtx = transferAmount();
-  console.log(`💸 Transferring ${cashtx} from new account...`);
+  console.log(`💸 Transferring cash from new account...`);
   const {toAccount, transCash} = await transferPage.transferFunds(accountNumber, cashtx);
   console.log('====================================================================');
   console.log(`💼 $${transCash}.00 has been transferred from account #${accountNumber} to account #${toAccount}`);
   console.log('====================================================================');
 
-  const biller = generateBiller(); // Make sure this comes before any usage 
+  const biller = generateBiller();
   console.log('====================== 🧪 Generated Test Data ======================');
   console.log(`👤 Name       : ${biller.billfirstName}`);
   console.log(`🏠 Address    : ${biller.billaddress}, ${biller.billcity}, ${biller.billstate}, ${biller.billzipCode}`);

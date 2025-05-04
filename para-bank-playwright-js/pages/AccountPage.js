@@ -36,7 +36,7 @@ export class AccountPage {
     await expect(this.page.getByText('Your new account number:')).toBeVisible();
 
     // Capture the text content of the new account number
-    const accountnumber = await this.page.locator('//*[@id="newAccountId"]').textContent();
+    const newAccountNumber = await this.page.locator('//*[@id="newAccountId"]').textContent();
 
     // Click the newly created account number link to navigate to details page
     await this.page.locator('//*[@id="newAccountId"]').click();
@@ -50,21 +50,21 @@ export class AccountPage {
     await this.page.waitForTimeout(3000);
 
     // Get the account type text (e.g., SAVINGS)
-    const accounttype = await this.page.locator('//*[@id="accountType"]').textContent();
+    const accountType = await this.page.locator('//*[@id="accountType"]').textContent();
 
     // Get the account number displayed on the account details page
-    const accountnumberdetailspage = await this.page
+    const accountNumberOfDetails = await this.page
       .locator('//*[@id="accountId"]')
       .textContent();
 
     // Validate that the account type is 'SAVINGS'
-    expect(accounttype.trim()).toMatch('SAVINGS');
+    expect(accountType.trim()).toMatch('SAVINGS');
 
     // Ensure the account number on details page matches the one returned initially
-    expect(accountnumber.trim()).toMatch(accountnumberdetailspage);
+    expect(newAccountNumber.trim()).toMatch(accountNumberOfDetails);
 
     // Return the account number for downstream use
-    return accountnumber;
+    return newAccountNumber;
   }
 
   // Method to validate that the new account appears in the accounts overview
