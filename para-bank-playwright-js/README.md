@@ -99,6 +99,8 @@ Or in debug mode:
 
 1.  We cannot test API test scenario 1, because the Para Bank app API "Find Transactions" will yield an internal server error if you placed the amount paid in the Pay Bill step. The only thing we can test is the Transfer Fund step. I tested this using Postman and I always encounter this issue.
 
+2. Sometimes, the Para Bank application breaks down and it incurs an internal server error. This will make the run failed. Just run the script again until the Para Bank application works as expected.
+
 ### Focus
 
 1. Due to time constraints, this automation framework only focuses on the E2E flow from Registering a User up to the Pay Bill step. Any other flows not related to this are disregarded for now. (e.g Negative testing, Performance testing, Cross Browser testing).
@@ -106,3 +108,5 @@ Or in debug mode:
 2. Used faker library to dynamically create test data.
 
 3. Added console logs to check what is happening while the script is running.
+
+4. I also was not able to add try catch scenarios to catch unexpected internal server errors due to time constraints.
