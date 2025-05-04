@@ -33,7 +33,7 @@ pipeline {
             steps {
                 publishHTML(target: [
                     reportName : 'Playwright Test Report',
-                    reportDir  : 'playwright-report',
+                    reportDir  : 'para-bank-playwright-js/playwright-report',
                     reportFiles: 'index.html',
                     keepAll    : true,
                     alwaysLinkToLastBuild: true,
